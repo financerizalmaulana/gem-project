@@ -1,0 +1,32 @@
+
+GEM PROJECT CHECKPOINT
+
+Tanggal:
+2026-06-08
+
+TEMUAN PENTING:
+
+1. master['cluster'] tidak sinkron dengan kmeans.pkl
+
+2. Verifikasi:
+kmeans.predict() = cluster 3
+master cluster   = cluster 1
+
+3. Distance terakhir:
+cluster 0 = 4.458
+cluster 1 = 7.385
+cluster 2 = 2.496
+cluster 3 = 0.484
+
+4. Probabilitas:
+Inflation Shock = 73%
+Growth Risk-On = 14%
+
+5. Kesimpulan sementara:
+Model tersimpan menunjukkan Inflation Shock.
+
+TODO BESOK:
+- Rebuild seluruh cluster dari kmeans.pkl
+- Rebuild transition matrix
+- Rebuild asset statistics
+- Audit regime terakhir
