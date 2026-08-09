@@ -1,5 +1,33 @@
 # Changelog
 
+## v2.4.0 — Telegram 400 error made debuggable, HTML-escaping bug fixed (2026-08-XX)
+
+A real GitHub Actions run reached `notification` for the first time
+and got `400 Client Error: Bad Request` — but with no way to tell WHY,
+because `resp.raise_for_status()` only reports the status code, not
+the JSON body Telegram sends back describing the specific reason.
+
+### Fixed
+- `send_via_telegram` now captures and surfaces Telegram's actual
+  `description` field (e.g. "chat not found", "can't parse entities")
+  instead of a bare status code.
+- `build_telegram_payload` now HTML-escapes message text. Found while
+  fixing the above: `check_regime_change`'s message format
+  ("Regime changed: A -> B") contains a literal `>` — with
+  `parse_mode=HTML` that WOULD have broken the very first real regime
+  change notification, whether or not it's what caused this specific
+  400. Closed proactively rather than waiting to hit it.
+- Added `test_send_via_telegram_surfaces_real_error_reason` and
+  updated existing Telegram tests for the `resp.ok` check (replacing
+  `raise_for_status()`) and the new escaping.
+
+### Still open
+The actual root cause of the specific 400 seen in the GitHub Actions
+run (`400 Client Error: Bad Request for url: .../sendMessage`) is not
+yet confirmed — could be an invalid chat_id, a bot token issue, or the
+HTML-escaping bug above. Re-running with this fix will surface the
+real reason in the logs.
+
 ## v2.3.1 — Partial-month bug found via live testing (2026-08-04)
 
 Real Colab run of `fetch_asset_prices.py --dry-run` (its first-ever

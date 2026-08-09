@@ -142,8 +142,14 @@ class AlertEngine:
         Pure function, no network — separated out so the message format
         can be unit-tested without hitting Telegram. This part IS tested
         (tests/test_alert_engine.py).
+        HTML-escaped defensively: parse_mode=HTML makes Telegram reject
+        the whole request if any message ever contains an unescaped
+        <, >, or & — this hasn't happened yet in the current alert
+        messages, but would fail silently-looking (just a 400) the
+        moment it did, so escaping now closes that off permanently.
         """
-        text = "\n\n".join(f"[{a['severity'].upper()}] {a['message']}" for a in alerts)
+        import html
+        text = "\n\n".join(f"[{a['severity'].upper()}] {html.escape(a['message'])}" for a in alerts)
         return {"chat_id": chat_id, "text": f"GEM Alert:\n\n{text}", "parse_mode": "HTML"}
 
     @staticmethod
@@ -155,8 +161,14 @@ class AlertEngine:
         allowlisted here). The payload construction and retry logic
         below ARE unit-tested with a mocked `requests.post`
         (tests/test_alert_engine.py::test_send_via_telegram_retries_on_failure).
-        The actual HTTP call itself needs verification in Colab or
-        wherever this ultimately runs, using a real bot token.
+
+        BUG FOUND via a real GitHub Actions run on 2026-08-XX: a 400
+        error was returned, but `resp.raise_for_status()` alone only
+        reports the status code — it discards the JSON body Telegram
+        actually sends back with the SPECIFIC reason (e.g. "chat not
+        found", "can't parse entities", "bot was blocked by the user").
+        Without that, this was undebuggable from the logs alone. Fixed
+        below to capture and surface the real reason.
         """
         import requests
         if not alerts:
@@ -169,7 +181,12 @@ class AlertEngine:
         for attempt in range(1, max_retries + 2):
             try:
                 resp = requests.post(url, data=payload, timeout=15)
-                resp.raise_for_status()
+                if not resp.ok:
+                    try:
+                        telegram_error = resp.json().get("description", resp.text)
+                    except Exception:
+                        telegram_error = resp.text
+                    raise RuntimeError(f"Telegram API error {resp.status_code}: {telegram_error}")
                 return {"sent": True, "attempt": attempt, "status_code": resp.status_code}
             except Exception as e:
                 last_error = str(e)

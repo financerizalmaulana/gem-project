@@ -21,7 +21,10 @@ def test_build_telegram_payload_format():
     ]
     payload = AlertEngine.build_telegram_payload(chat_id="12345", alerts=alerts)
     assert payload["chat_id"] == "12345"
-    assert "[HIGH] Regime changed: A -> B" in payload["text"]
+    # HTML-escaped: the literal ">" in "->" would otherwise break Telegram's
+    # parse_mode=HTML parser — this is a real message shape the alert engine
+    # actually produces (check_regime_change), not a hypothetical.
+    assert "[HIGH] Regime changed: A -&gt; B" in payload["text"]
     assert "[MEDIUM] Confidence is low" in payload["text"]
 
 
@@ -35,7 +38,7 @@ def test_send_via_telegram_no_alerts_is_a_noop():
 def test_send_via_telegram_succeeds_on_first_try(mock_sleep):
     alerts = [{"type": "X", "severity": "high", "message": "test"}]
     with patch("requests.post") as mock_post:
-        mock_post.return_value = MagicMock(status_code=200, raise_for_status=lambda: None)
+        mock_post.return_value = MagicMock(status_code=200, ok=True)
         result = AlertEngine.send_via_telegram("fake-token", "12345", alerts)
     assert result["sent"] is True
     assert result["attempt"] == 1
@@ -51,6 +54,25 @@ def test_send_via_telegram_retries_on_failure(mock_sleep):
     assert result["sent"] is False
     assert mock_post.call_count == 3  # initial attempt + 2 retries
     assert "simulated network failure" in result["reason"]
+
+
+@patch("time.sleep", return_value=None)
+def test_send_via_telegram_surfaces_real_error_reason(mock_sleep):
+    """
+    Regression test for a real bug found via a GitHub Actions run: a 400
+    from Telegram was reported only as "400 Client Error: Bad Request for
+    url: ..." with no way to tell WHY. Telegram's actual JSON body
+    (the "description" field) must now be captured and surfaced.
+    """
+    alerts = [{"type": "X", "severity": "high", "message": "test"}]
+    with patch("requests.post") as mock_post:
+        mock_post.return_value = MagicMock(
+            status_code=400, ok=False,
+            json=lambda: {"ok": False, "description": "Bad Request: chat not found"},
+        )
+        result = AlertEngine.send_via_telegram("fake-token", "12345", alerts, max_retries=0)
+    assert result["sent"] is False
+    assert "chat not found" in result["reason"]
 
 
 def test_check_data_freshness_fires_when_stale():
