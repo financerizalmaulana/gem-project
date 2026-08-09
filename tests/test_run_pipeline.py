@@ -17,6 +17,19 @@ NOT_A_NEW_MONTH = {"is_new_month": False, "date_updated": "2026-06-30", "regime"
 IS_A_NEW_MONTH = {"is_new_month": True, "date_updated": "2026-07-31", "regime": "Growth Risk-On"}
 
 
+def test_clean_env_strips_whitespace(monkeypatch):
+    """
+    Regression test for a real bug found via a GitHub Actions run: a
+    trailing newline in a copy-pasted secret broke a downstream API call.
+    """
+    monkeypatch.setenv("FAKE_SECRET", "abc123\n")
+    assert run_pipeline._clean_env("FAKE_SECRET") == "abc123"
+
+
+def test_clean_env_handles_missing_var():
+    assert run_pipeline._clean_env("DEFINITELY_NOT_SET_XYZ") is None
+
+
 def test_skips_data_refresh_without_api_key():
     with patch("run_pipeline.update_asset_prices", return_value={"returns_written": {}}), \
          patch("run_pipeline.AlertEngine") as MockAlertEngine, \

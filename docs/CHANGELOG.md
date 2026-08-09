@@ -1,5 +1,28 @@
 # Changelog
 
+## v2.5.0 — Two real bugs found via a full GitHub Actions run (2026-08-XX)
+
+First run where the Telegram error-surfacing fix (v2.4.0) actually
+paid off — both failures now have clear, actionable causes instead of
+opaque "400 Bad Request".
+
+### Fixed
+- **FRED 400 error**: the actual error was `api_key=***%0A` — a
+  trailing newline in the copy-pasted `FRED_API_KEY` GitHub Secret got
+  URL-encoded and FRED rejected it outright. Added defensive
+  `.strip()` in two places: `fetch_fred_series` itself (protects any
+  direct/Colab usage) and a new `_clean_env` helper in
+  `run_pipeline.py` (protects all three env-sourced credentials —
+  FRED key, Telegram token, Telegram chat id — at the single point
+  they're read from the environment). Added regression tests for both.
+
+### Diagnosed, not a code bug
+- **Telegram "chat not found"**: this is a credentials/setup issue,
+  not a code defect — either TELEGRAM_CHAT_ID is wrong or the bot was
+  never messaged first (Telegram bots can't initiate a conversation).
+  Confirmed the v2.4.0 error-surfacing fix works as intended — this
+  reason would have been invisible before that fix.
+
 ## v2.4.0 — Telegram 400 error made debuggable, HTML-escaping bug fixed (2026-08-XX)
 
 A real GitHub Actions run reached `notification` for the first time

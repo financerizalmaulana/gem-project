@@ -145,11 +145,26 @@ def run(fred_api_key: str = None, telegram_bot_token: str = None, telegram_chat_
     return log
 
 
+def _clean_env(name: str) -> str:
+    """
+    Strips whitespace/newlines from an env var before use. Found via a
+    real GitHub Actions run: a trailing newline in a copy-pasted
+    FRED_API_KEY secret got URL-encoded as %0A and FRED rejected the
+    whole request with 400 Bad Request. Copy-pasting secrets into
+    GitHub's secret box picking up a trailing newline is an easy,
+    common mistake — defending against it here means it can't silently
+    break any of the three credentials (FRED key, Telegram token/chat
+    id) ever again, regardless of how carefully they're pasted.
+    """
+    value = os.environ.get(name)
+    return value.strip() if value else value
+
+
 if __name__ == "__main__":
     result = run(
-        fred_api_key=os.environ.get("FRED_API_KEY"),
-        telegram_bot_token=os.environ.get("TELEGRAM_BOT_TOKEN"),
-        telegram_chat_id=os.environ.get("TELEGRAM_CHAT_ID"),
+        fred_api_key=_clean_env("FRED_API_KEY"),
+        telegram_bot_token=_clean_env("TELEGRAM_BOT_TOKEN"),
+        telegram_chat_id=_clean_env("TELEGRAM_CHAT_ID"),
         skip_data_refresh="--skip-data-refresh" in sys.argv,
     )
     print(json.dumps(result, indent=2, default=str))

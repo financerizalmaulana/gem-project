@@ -25,7 +25,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from config.settings import PATHS, MACRO_FEATURES
 from data.fetch_macro_data import (
     compute_yoy_pct, compute_6m_diff, compute_trailing_ratio,
-    compute_latest_features, update_master_dataset, FRED_SERIES,
+    compute_latest_features, update_master_dataset, fetch_fred_series, FRED_SERIES,
 )
 
 
@@ -50,6 +50,32 @@ def test_compute_trailing_ratio_known_value():
     # 13 months: trailing 12 average to 20, latest value 30 -> ratio 1.5
     s = _monthly_series([20.0] * 12 + [30.0])
     assert abs(compute_trailing_ratio(s, window=12) - 1.5) < 1e-9
+
+
+def test_fetch_fred_series_strips_trailing_newline_from_api_key(monkeypatch):
+    """
+    Regression test for a real bug found via a GitHub Actions run: a
+    trailing newline in a copy-pasted FRED_API_KEY GitHub Secret got
+    URL-encoded as %0A, and FRED rejected the whole request with
+    400 Bad Request. fetch_fred_series must strip the key before use.
+    """
+    captured_params = {}
+
+    class FakeResponse:
+        def raise_for_status(self):
+            pass
+
+        def json(self):
+            return {"observations": [{"date": "2024-01-31", "value": "1.0"}]}
+
+    def fake_get(url, params, timeout):
+        captured_params.update(params)
+        return FakeResponse()
+
+    import data.fetch_macro_data as fmd
+    monkeypatch.setattr("requests.get", fake_get)
+    fmd.fetch_fred_series("CPIAUCSL", "abc123\n")  # simulate a key with a trailing newline
+    assert captured_params["api_key"] == "abc123"  # not "abc123\n"
 
 
 def test_compute_yoy_raises_on_insufficient_data():

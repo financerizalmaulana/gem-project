@@ -86,6 +86,9 @@ def fetch_fred_series(series_id: str, api_key: str, lookback_days: int = LOOKBAC
     """Fetches one FRED series, returns a monthly-resampled pd.Series indexed by month-end date."""
     import requests  # imported here, not at module level, so this file can be imported
                       # for its transform functions even where `requests` isn't installed
+    api_key = api_key.strip() if api_key else api_key  # a trailing newline from a copy-pasted
+                                                          # key broke a real GitHub Actions run
+                                                          # (FRED returned 400 on %0A in api_key)
     start = (datetime.now() - timedelta(days=lookback_days)).strftime("%Y-%m-%d")
     params = {
         "series_id": series_id,
