@@ -72,15 +72,34 @@ class RegimeEngine:
         }
 
     def detect_latest(self) -> dict:
+        """
+        Uses the latest row with COMPLETE macro features, not just the
+        last row in the file. Bug found via a real Streamlit Cloud
+        deployment: fetch_asset_prices.py can create a "placeholder" row
+        for a new month (asset returns filled in, macro columns NaN)
+        before fetch_macro_data.py has managed to fill it in — FRED can
+        lag 30+ days behind. Using that row directly produced
+        confidence_score=nan and a meaningless regime (argmin on an
+        all-NaN distance array silently defaults to cluster 0, which
+        looked like a real "Inflation Shock" signal but wasn't one).
+        """
         master = pd.read_parquet(PATHS["master_dataset"])
-        latest = master.iloc[-1]
+        complete = master.dropna(subset=MACRO_FEATURES)
+        if complete.empty:
+            raise ValueError(
+                "master_dataset.parquet has no row with complete macro features yet — "
+                "every row is missing at least one of MACRO_FEATURES."
+            )
+        latest = complete.iloc[-1]
         result = self.detect(latest)
         result["date"] = str(latest["date"].date()) if hasattr(latest["date"], "date") else str(latest["date"])
         return result
 
     def regime_history(self, n_months: int = 12) -> pd.DataFrame:
+        """Skips rows with no regime yet (same placeholder-row cause as detect_latest above)."""
         master = pd.read_parquet(PATHS["master_dataset"])
-        return master[["date", "regime"]].tail(n_months).reset_index(drop=True)
+        complete = master.dropna(subset=["regime"])
+        return complete[["date", "regime"]].tail(n_months).reset_index(drop=True)
 
 
 if __name__ == "__main__":
