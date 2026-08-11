@@ -1,5 +1,38 @@
 # Changelog
 
+## v2.6.0 — Placeholder-row bug found via real Streamlit Cloud deployment (2026-08-09)
+
+Live dashboard on Streamlit Community Cloud showed "Confidence: nan/100"
+and regime "Inflation Shock" — didn't match the "Growth Risk-On" seen
+in the last several GitHub Actions runs.
+
+### Root cause
+`fetch_asset_prices.py` can create a placeholder row for a new month
+(asset returns filled in, ALL macro columns NaN) before
+`fetch_macro_data.py` has managed to fill that same row in — FRED can
+lag 30+ days behind actual asset-price data, which updates daily.
+`RegimeEngine.detect_latest()` used `master.iloc[-1]` unconditionally,
+so it read that incomplete row directly: NaN macro features -> NaN
+distances -> NaN confidence, and `np.argmin()` on an all-NaN array
+silently returns index 0 — which happened to be "Inflation Shock" in
+regime_map.json. A real-looking but meaningless answer, not a genuine
+regime read.
+
+### Fixed
+- `RegimeEngine.detect_latest()` now uses the latest row with COMPLETE
+  macro features (`dropna(subset=MACRO_FEATURES)`), not just the last
+  row in the file.
+- `RegimeEngine.regime_history()` now skips rows with no regime
+  computed yet, for the same reason (would have shown a blank/NaN
+  row at the end of the history table).
+- No data migration needed — this is a read-time fix. Existing
+  placeholder rows already in a deployed master_dataset.parquet are
+  automatically skipped until fetch_macro_data.py fills them in for
+  real on a future run.
+- Added `tests/test_regime_engine.py` — 3 tests, including one that
+  reproduces the exact bug (a synthetic placeholder row with real
+  asset returns and NaN macro features) and confirms it's skipped.
+
 ## v2.5.0 — Two real bugs found via a full GitHub Actions run (2026-08-XX)
 
 First run where the Telegram error-surfacing fix (v2.4.0) actually
