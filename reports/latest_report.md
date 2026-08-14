@@ -1,11 +1,11 @@
-# GEM AI Analyst Report — 2026-08-13
+# GEM AI Analyst Report — 2026-08-14
 
 **Data as of:** 2026-06-30
 
 ## 1. Current Economic Regime
 - **Regime:** Growth Risk-On
-- **Confidence:** 59.2/100
-- **Full probability distribution:** Growth Risk-On 37.68%, Disinflation Normal 28.51%, Inflation Shock 24.9%, Crisis 8.91%
+- **Confidence:** 58.3/100
+- **Full probability distribution:** Growth Risk-On 37.2%, Disinflation Normal 28.86%, Inflation Shock 24.98%, Crisis 8.96%
 - **Historical risk level of this regime:** 42.6/100 (avg volatility 7.77%/mo, 38.6% of months negative across tracked assets, sample confidence: medium)
 
 ## 2. Regime Transition Forecast (forward-looking risk)
