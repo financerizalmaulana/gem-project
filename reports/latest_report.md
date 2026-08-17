@@ -1,4 +1,4 @@
-# GEM AI Analyst Report — 2026-08-16
+# GEM AI Analyst Report — 2026-08-17
 
 **Data as of:** 2026-06-30
 
@@ -50,7 +50,7 @@
 | TLT | -15.4% | 5.5% | 32.1% | -35.2% | 14.7% | 88.0% |
 
 ## 5. Active Warnings
-- **[HIGH]** master_dataset.parquet's latest row is 2026-06-30 (47 days old). Every other check below is computed from this same stale data — the data ingestion pipeline (data/fetch_macro_data.py) may be failing silently.
+- **[HIGH]** master_dataset.parquet's latest row is 2026-06-30 (48 days old). Every other check below is computed from this same stale data — the data ingestion pipeline (data/fetch_macro_data.py) may be failing silently.
 
 ## 6. Indonesia Macro Layer
 - Inflation: 1.95% YoY (contained)
