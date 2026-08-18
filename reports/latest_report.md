@@ -1,11 +1,11 @@
-# GEM AI Analyst Report — 2026-08-17
+# GEM AI Analyst Report — 2026-08-18
 
 **Data as of:** 2026-06-30
 
 ## 1. Current Economic Regime
 - **Regime:** Growth Risk-On
-- **Confidence:** 59.0/100
-- **Full probability distribution:** Growth Risk-On 37.81%, Disinflation Normal 28.81%, Inflation Shock 24.54%, Crisis 8.83%
+- **Confidence:** 58.1/100
+- **Full probability distribution:** Growth Risk-On 37.0%, Disinflation Normal 28.95%, Inflation Shock 25.04%, Crisis 9.02%
 - **Historical risk level of this regime:** 42.6/100 (avg volatility 7.77%/mo, 38.6% of months negative across tracked assets, sample confidence: medium)
 
 ## 2. Regime Transition Forecast (forward-looking risk)
@@ -50,13 +50,13 @@
 | TLT | -15.4% | 5.5% | 32.1% | -35.2% | 14.7% | 88.0% |
 
 ## 5. Active Warnings
-- **[HIGH]** master_dataset.parquet's latest row is 2026-06-30 (48 days old). Every other check below is computed from this same stale data — the data ingestion pipeline (data/fetch_macro_data.py) may be failing silently.
+- **[HIGH]** master_dataset.parquet's latest row is 2026-06-30 (49 days old). Every other check below is computed from this same stale data — the data ingestion pipeline (data/fetch_macro_data.py) may be failing silently.
 
 ## 6. Indonesia Macro Layer
 - Inflation: 1.95% YoY (contained)
 - BI rate proxy: 5.88% (hiking)
 - USD/IDR: 17534.0 (weakening over 3m)
-- Trade balance: narrowing surplus
+- Trade balance: deficit
   - ⚠️ bi_rate is an interbank-rate proxy, not the official BI 7-Day Reverse Repo Rate
   - ⚠️ usdidr is quarterly data forward-filled to monthly — not a real monthly read
   - ⚠️ This is a rule-based directional read, not a validated regime classification like the global engine — a permanent design decision, not a gap (see module docstring)
