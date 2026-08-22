@@ -1,11 +1,11 @@
-# GEM AI Analyst Report — 2026-08-21
+# GEM AI Analyst Report — 2026-08-22
 
 **Data as of:** 2026-06-30
 
 ## 1. Current Economic Regime
 - **Regime:** Growth Risk-On
-- **Confidence:** 59.3/100
-- **Full probability distribution:** Growth Risk-On 37.95%, Disinflation Normal 28.67%, Inflation Shock 24.53%, Crisis 8.85%
+- **Confidence:** 60.4/100
+- **Full probability distribution:** Growth Risk-On 38.56%, Disinflation Normal 28.13%, Inflation Shock 24.5%, Crisis 8.81%
 - **Historical risk level of this regime:** 42.6/100 (avg volatility 7.77%/mo, 38.6% of months negative across tracked assets, sample confidence: medium)
 
 ## 2. Regime Transition Forecast (forward-looking risk)
@@ -50,7 +50,7 @@
 | TLT | -15.4% | 5.5% | 32.1% | -35.2% | 14.7% | 88.0% |
 
 ## 5. Active Warnings
-- **[HIGH]** master_dataset.parquet's latest row is 2026-06-30 (52 days old). Every other check below is computed from this same stale data — the data ingestion pipeline (data/fetch_macro_data.py) may be failing silently.
+- **[HIGH]** master_dataset.parquet's latest row is 2026-06-30 (53 days old). Every other check below is computed from this same stale data — the data ingestion pipeline (data/fetch_macro_data.py) may be failing silently.
 
 ## 6. Indonesia Macro Layer
 - Inflation: 1.95% YoY (contained)
