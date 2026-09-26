@@ -1,12 +1,12 @@
-# GEM AI Analyst Report — 2026-09-25
+# GEM AI Analyst Report — 2026-09-26
 
-**Data as of:** 2026-07-31
+**Data as of:** 2026-08-31
 
 ## 1. Current Economic Regime
 - **Regime:** Growth Risk-On
-- **Confidence:** 57.3/100
-- **Full probability distribution:** Growth Risk-On 36.1%, Inflation Shock 28.85%, Disinflation Normal 25.56%, Crisis 9.49%
-- **Historical risk level of this regime:** 42.6/100 (avg volatility 7.77%/mo, 38.6% of months negative across tracked assets, sample confidence: medium)
+- **Confidence:** 57.6/100
+- **Full probability distribution:** Growth Risk-On 35.62%, Inflation Shock 28.01%, Disinflation Normal 26.9%, Crisis 9.48%
+- **Historical risk level of this regime:** 42.1/100 (avg volatility 7.76%/mo, 37.6% of months negative across tracked assets, sample confidence: medium)
 
 ## 2. Regime Transition Forecast (forward-looking risk)
 - **1m:** Growth Risk-On 95.5%, Inflation Shock 3.6%, Disinflation Normal 0.9%, Crisis 0.0%
@@ -19,38 +19,38 @@
 
 | Asset | Call | Current-regime mean/mo | Forward blend | Volatility | Score |
 |---|---|---|---|---|---|
-| BTC | **HOLD** | 3.77% | 3.39% | 20.3% | 0.54 |
-| QQQ | **HOLD** | 1.83% | 1.71% | 4.96% | 1.03 |
-| SPY | **HOLD** | 1.34% | 1.28% | 4.06% | 0.7 |
-| GLD | **HOLD** | 2.21% | 1.95% | 5.94% | 1.19 |
-| TLT | **HOLD** | 0.76% | 0.59% | 3.61% | 0.14 |
+| BTC | **HOLD** | 4.53% | 4.06% | 20.32% | 1.25 |
+| QQQ | **HOLD** | 1.88% | 1.76% | 4.92% | 1.08 |
+| SPY | **HOLD** | 1.37% | 1.31% | 4.02% | 0.74 |
+| GLD | **HOLD** | 2.39% | 2.11% | 5.99% | 1.35 |
+| TLT | **HOLD** | 0.76% | 0.59% | 3.56% | 0.14 |
 
 ## 4. BTC Multi-Horizon Scenario Ranges
 *(Monte Carlo bootstrap over historical regime-conditional returns — a scenario range, not a prediction)*
 
 | Horizon | p5 (bad case) | p25 | p50 (median) | p75 | p95 (good case) | P(positive) |
 |---|---|---|---|---|---|---|
-| 1m | -27.8% | -8.7% | 1.8% | 11.1% | 38.3% | 54.2% |
-| 2m | -32.5% | -11.7% | 3.6% | 23.1% | 61.1% | 54.6% |
-| 3m | -37.4% | -14.2% | 5.6% | 32.0% | 78.7% | 57.5% |
-| 6m | -47.7% | -18.3% | 11.1% | 52.6% | 138.7% | 59.1% |
-| 12m | -62.4% | -25.5% | 17.9% | 84.1% | 264.4% | 59.4% |
-| 2y | -76.6% | -34.6% | 30.3% | 154.9% | 566.1% | 60.0% |
-| 3y | -82.8% | -40.8% | 41.0% | 227.1% | 1007.5% | 60.3% |
-| 4y | -86.9% | -43.4% | 53.7% | 320.9% | 1516.7% | 61.5% |
+| 1m | -27.8% | -8.7% | 1.8% | 11.1% | 38.3% | 55.8% |
+| 2m | -32.1% | -11.4% | 4.6% | 25.2% | 65.7% | 56.4% |
+| 3m | -37.2% | -12.9% | 7.3% | 34.6% | 83.6% | 59.3% |
+| 6m | -46.2% | -15.5% | 14.7% | 55.9% | 144.8% | 61.8% |
+| 12m | -60.0% | -19.5% | 25.5% | 100.6% | 287.8% | 63.7% |
+| 2y | -74.4% | -24.9% | 46.2% | 192.1% | 664.0% | 65.3% |
+| 3y | -80.3% | -29.7% | 70.1% | 306.3% | 1238.2% | 66.4% |
+| 4y | -83.5% | -30.3% | 94.8% | 421.4% | 2065.8% | 67.0% |
 
 ## 4b. Other Tracked Assets — 12-Month and 4-Year Scenario Ranges
 *(Same Monte Carlo methodology as BTC above, applied per-asset — closes the "multi-horizon forecasting is BTC-only" gap using the same engine, not a new one)*
 
 | Asset | 12m p5 | 12m p50 | 12m p95 | 4y p5 | 4y p50 | 4y p95 |
 |---|---|---|---|---|---|---|
-| QQQ | -10.7% | 20.6% | 61.2% | 1.9% | 107.5% | 340.9% |
-| SPY | -9.8% | 15.5% | 45.1% | 2.1% | 74.4% | 200.9% |
-| GLD | -12.4% | 21.9% | 69.4% | -1.5% | 101.9% | 320.8% |
-| TLT | -15.4% | 5.5% | 32.1% | -35.2% | 14.7% | 88.0% |
+| QQQ | -9.1% | 20.8% | 62.2% | 1.6% | 110.6% | 347.4% |
+| SPY | -8.8% | 15.4% | 45.4% | 2.9% | 76.6% | 201.7% |
+| GLD | -11.6% | 23.7% | 72.6% | 1.4% | 113.8% | 352.4% |
+| TLT | -15.1% | 5.5% | 31.3% | -35.2% | 15.5% | 87.5% |
 
 ## 5. Active Warnings
-- **[HIGH]** master_dataset.parquet's latest row is 2026-07-31 (56 days old). Every other check below is computed from this same stale data — the data ingestion pipeline (data/fetch_macro_data.py) may be failing silently.
+- No warnings triggered this run.
 
 ## 6. Indonesia Macro Layer
 - Inflation: 1.95% YoY (contained)
