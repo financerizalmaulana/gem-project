@@ -1,4 +1,4 @@
-# GEM AI Analyst Report — 2026-10-10
+# GEM AI Analyst Report — 2026-10-11
 
 **Data as of:** 2026-08-31
 
