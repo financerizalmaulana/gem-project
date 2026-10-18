@@ -1,4 +1,4 @@
-# GEM AI Analyst Report — 2026-10-17
+# GEM AI Analyst Report — 2026-10-18
 
 **Data as of:** 2026-08-31
 
@@ -50,12 +50,12 @@
 | TLT | -27.0% | -5.7% | 21.2% | -44.1% | -0.4% | 67.7% |
 
 ## 5. Active Warnings
-- **[HIGH]** master_dataset.parquet's latest row is 2026-08-31 (47 days old). Every other check below is computed from this same stale data — the data ingestion pipeline (data/fetch_macro_data.py) may be failing silently.
+- **[HIGH]** master_dataset.parquet's latest row is 2026-08-31 (48 days old). Every other check below is computed from this same stale data — the data ingestion pipeline (data/fetch_macro_data.py) may be failing silently.
 - **[HIGH]** BTC: AVOID (risk-adjusted score -3.8)
 - **[MEDIUM]** TLT: REDUCE (risk-adjusted score -1.38)
 
 ## 6. Indonesia Macro Layer
-- Inflation: 1.95% YoY (contained)
+- Inflation: nan% YoY (contained)
 - BI rate proxy: 6.06% (hiking)
 - USD/IDR: 17865.0 (weakening over 3m)
 - Trade balance: widening surplus
