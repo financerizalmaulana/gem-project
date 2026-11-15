@@ -1,4 +1,4 @@
-# GEM AI Analyst Report — 2026-11-14
+# GEM AI Analyst Report — 2026-11-15
 
 **Data as of:** 2026-09-30
 
@@ -50,6 +50,7 @@
 | TLT | -27.0% | -5.7% | 21.2% | -44.1% | -0.4% | 67.7% |
 
 ## 5. Active Warnings
+- **[HIGH]** master_dataset.parquet's latest row is 2026-09-30 (46 days old). Every other check below is computed from this same stale data — the data ingestion pipeline (data/fetch_macro_data.py) may be failing silently.
 - **[HIGH]** BTC: AVOID (risk-adjusted score -3.8)
 - **[MEDIUM]** TLT: REDUCE (risk-adjusted score -1.38)
 
