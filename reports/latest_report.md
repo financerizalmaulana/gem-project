@@ -1,12 +1,12 @@
-# GEM AI Analyst Report — 2026-11-25
+# GEM AI Analyst Report — 2026-11-26
 
-**Data as of:** 2026-09-30
+**Data as of:** 2026-10-31
 
 ## 1. Current Economic Regime
 - **Regime:** Inflation Shock
-- **Confidence:** 58.3/100
-- **Full probability distribution:** Inflation Shock 35.9%, Growth Risk-On 27.56%, Disinflation Normal 25.23%, Crisis 11.31%
-- **Historical risk level of this regime:** 50.2/100 (avg volatility 8.04%/mo, 52.1% of months negative across tracked assets, sample confidence: medium)
+- **Confidence:** 59.1/100
+- **Full probability distribution:** Inflation Shock 36.68%, Growth Risk-On 27.56%, Disinflation Normal 24.53%, Crisis 11.23%
+- **Historical risk level of this regime:** 50.6/100 (avg volatility 8.0%/mo, 53.1% of months negative across tracked assets, sample confidence: medium)
 
 ## 2. Regime Transition Forecast (forward-looking risk)
 - **1m:** Inflation Shock 92.7%, Growth Risk-On 5.5%, Crisis 1.8%, Disinflation Normal 0.0%
@@ -19,40 +19,40 @@
 
 | Asset | Call | Current-regime mean/mo | Forward blend | Volatility | Score |
 |---|---|---|---|---|---|
-| BTC | **AVOID** | -1.39% | -0.22% | 19.94% | -3.8 |
-| QQQ | **HOLD** | 0.56% | 1.02% | 6.7% | -0.21 |
-| SPY | **HOLD** | 0.74% | 0.95% | 5.36% | 0.04 |
-| GLD | **HOLD** | -0.09% | 0.43% | 3.88% | -0.41 |
-| TLT | **REDUCE** | -0.9% | -0.57% | 4.32% | -1.38 |
+| BTC | **AVOID** | -1.59% | -0.38% | 19.61% | -3.93 |
+| QQQ | **HOLD** | 0.31% | 0.82% | 6.72% | -0.44 |
+| SPY | **HOLD** | 0.68% | 0.9% | 5.27% | -0.0 |
+| GLD | **REDUCE** | -0.31% | 0.26% | 4.0% | -0.63 |
+| TLT | **REDUCE** | -0.67% | -0.38% | 4.41% | -1.19 |
 
 ## 4. BTC Multi-Horizon Scenario Ranges
 *(Monte Carlo bootstrap over historical regime-conditional returns — a scenario range, not a prediction)*
 
 | Horizon | p5 (bad case) | p25 | p50 (median) | p75 | p95 (good case) | P(positive) |
 |---|---|---|---|---|---|---|
-| 1m | -35.4% | -15.7% | -3.6% | 13.3% | 39.8% | 40.9% |
-| 2m | -42.1% | -21.7% | -5.0% | 15.1% | 48.0% | 42.7% |
-| 3m | -47.6% | -26.5% | -7.5% | 16.5% | 62.3% | 41.1% |
-| 6m | -61.8% | -37.0% | -13.3% | 22.0% | 93.1% | 39.3% |
-| 12m | -74.6% | -50.1% | -16.3% | 37.1% | 171.0% | 41.0% |
-| 2y | -85.6% | -59.3% | -15.7% | 74.7% | 394.1% | 43.9% |
-| 3y | -89.5% | -63.8% | -10.4% | 124.4% | 723.9% | 46.7% |
-| 4y | -91.7% | -63.9% | -2.6% | 180.5% | 1166.3% | 49.3% |
+| 1m | -35.4% | -15.7% | -6.1% | 12.2% | 39.8% | 38.2% |
+| 2m | -41.6% | -21.6% | -6.2% | 13.6% | 47.7% | 40.5% |
+| 3m | -48.4% | -27.0% | -8.3% | 15.2% | 58.7% | 39.8% |
+| 6m | -61.7% | -37.5% | -14.3% | 19.5% | 89.8% | 37.8% |
+| 12m | -75.4% | -50.7% | -19.0% | 32.7% | 168.9% | 38.9% |
+| 2y | -85.1% | -60.4% | -18.9% | 69.5% | 377.4% | 42.3% |
+| 3y | -90.2% | -64.8% | -12.3% | 110.0% | 726.3% | 46.0% |
+| 4y | -92.3% | -65.2% | -7.8% | 171.0% | 1115.0% | 47.9% |
 
 ## 4b. Other Tracked Assets — 12-Month and 4-Year Scenario Ranges
 *(Same Monte Carlo methodology as BTC above, applied per-asset — closes the "multi-horizon forecasting is BTC-only" gap using the same engine, not a new one)*
 
 | Asset | 12m p5 | 12m p50 | 12m p95 | 4y p5 | 4y p50 | 4y p95 |
 |---|---|---|---|---|---|---|
-| QQQ | -25.6% | 12.0% | 72.0% | -13.8% | 92.8% | 444.9% |
-| SPY | -18.9% | 11.1% | 51.4% | -7.2% | 68.7% | 219.9% |
-| GLD | -17.9% | 4.7% | 45.5% | -17.1% | 70.6% | 277.6% |
-| TLT | -27.0% | -5.7% | 21.2% | -44.1% | -0.4% | 67.7% |
+| QQQ | -26.3% | 9.4% | 68.9% | -18.6% | 83.6% | 416.8% |
+| SPY | -18.1% | 10.5% | 50.1% | -7.8% | 64.8% | 217.0% |
+| GLD | -21.0% | 2.4% | 45.6% | -23.8% | 62.4% | 273.2% |
+| TLT | -26.5% | -3.8% | 24.1% | -40.5% | 4.3% | 71.4% |
 
 ## 5. Active Warnings
-- **[HIGH]** master_dataset.parquet's latest row is 2026-09-30 (56 days old). Every other check below is computed from this same stale data — the data ingestion pipeline (data/fetch_macro_data.py) may be failing silently.
-- **[HIGH]** BTC: AVOID (risk-adjusted score -3.8)
-- **[MEDIUM]** TLT: REDUCE (risk-adjusted score -1.38)
+- **[HIGH]** BTC: AVOID (risk-adjusted score -3.93)
+- **[MEDIUM]** GLD: REDUCE (risk-adjusted score -0.63)
+- **[MEDIUM]** TLT: REDUCE (risk-adjusted score -1.19)
 
 ## 6. Indonesia Macro Layer
 - Inflation: nan% YoY (contained)
